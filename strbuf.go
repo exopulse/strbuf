@@ -4,6 +4,7 @@
 package strbuf
 
 import (
+	"fmt"
 	"io"
 	"strings"
 )
@@ -34,6 +35,18 @@ func (b *Buffer) AppendAll(s []string) *Buffer {
 	return b
 }
 
+// Appendf appends formatted string.
+func (b *Buffer) Appendf(format string, args ...interface{}) *Buffer {
+	return b.append(fmt.Sprintf(format, args...))
+}
+
+// AppendTitle appends string and underlines it with specified string.
+func (b *Buffer) AppendTitle(s string, underline string) *Buffer {
+	b.append(s)
+
+	return b.append(strings.Repeat(underline, len(s)))
+}
+
 // NewLine appends new line.
 func (b *Buffer) NewLine() *Buffer {
 	return b.append("")
@@ -46,13 +59,6 @@ func (b *Buffer) EnsureEmptyLine() *Buffer {
 
 	}
 	return b.NewLine()
-}
-
-// AppendTitle appends string and underlines it with specified string.
-func (b *Buffer) AppendTitle(s string, underline string) *Buffer {
-	b.append(s)
-
-	return b.append(strings.Repeat(underline, len(s)))
 }
 
 // Error returns error if any.

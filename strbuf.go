@@ -1,6 +1,8 @@
-// Package strbuf contains string buffer object which allows multiple operations on the same buffer while not forcing
-// user to check for errors in each operation. Once done with the buffer, user can interrogate error state to see if
-// there were errors during string build.
+// Package strbuf contains string buffer type which allows multiple operations on the same buffer while not forcing
+// user to check for errors after each operation.
+// Each line is separated using new line string provided during buffer creation.
+//
+// Once done with the buffer, user can interrogate error state to see if there were errors during string build.
 package strbuf
 
 import (
@@ -10,6 +12,7 @@ import (
 )
 
 // Buffer serves as intermediate storage for string based operations.
+// Use NewBuffer() to instantiate new buffer instance.
 type Buffer struct {
 	newLine string
 	builder strings.Builder
@@ -52,7 +55,7 @@ func (b *Buffer) NewLine() *Buffer {
 	return b.append("")
 }
 
-// EnsureEmptyLine ensured there is one empty line at the tail of this buffer.
+// EnsureEmptyLine ensures there is one empty line at the tail of this buffer.
 func (b *Buffer) EnsureEmptyLine() *Buffer {
 	if strings.HasSuffix(b.builder.String(), b.newLine) {
 		return b
@@ -82,17 +85,30 @@ func (b *Buffer) append(s string) *Buffer {
 	return b
 }
 
+// String returns the accumulated string. Make sure to check for any accumulated errors first.
 func (b *Buffer) String() string {
+	if b.error != nil {
+		return ""
+	}
+
 	return b.builder.String()
 }
 
-// Bytes return contents of this buffer as bytes.
+// Bytes return contents of this buffer as bytes. Make sure to check for any accumulated errors first.
 func (b *Buffer) Bytes() []byte {
+	if b.error != nil {
+		return []byte{}
+	}
+
 	return []byte(b.builder.String())
 }
 
 // Write writes contents of this buffer to writer.
 func (b *Buffer) Write(w io.Writer) error {
+	if b.error != nil {
+		return b.error
+	}
+
 	_, err := w.Write(b.Bytes())
 
 	return err

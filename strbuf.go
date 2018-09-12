@@ -3,7 +3,10 @@
 // there were errors during string build.
 package strbuf
 
-import "strings"
+import (
+	"io"
+	"strings"
+)
 
 // Buffer serves as intermediate storage for string based operations.
 type Buffer struct {
@@ -80,4 +83,11 @@ func (b *Buffer) String() string {
 // Bytes return contents of this buffer as bytes.
 func (b *Buffer) Bytes() []byte {
 	return []byte(b.builder.String())
+}
+
+// Write writes contents of this buffer to writer.
+func (b *Buffer) Write(w io.Writer) error {
+	_, err := w.Write(b.Bytes())
+
+	return err
 }

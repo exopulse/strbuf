@@ -1,6 +1,6 @@
 // Package strbuf contains string buffer type which allows multiple operations on the same buffer while not forcing
 // user to check for errors after each operation.
-// Each line is separated using new line string provided during buffer creation.
+// Each line is separated using new-line string provided during buffer creation.
 //
 // Once done with the buffer, user can interrogate error state to see if there were errors during string build.
 package strbuf
@@ -19,7 +19,7 @@ type Buffer struct {
 	error   error
 }
 
-// NewBuffer creates empty buffer. Each line is separated with new line string.
+// NewBuffer creates empty buffer. Each line is separated with new-line string.
 func NewBuffer(newLine string) *Buffer {
 	return &Buffer{newLine: newLine}
 }
@@ -59,8 +59,8 @@ func (b *Buffer) NewLine() *Buffer {
 func (b *Buffer) EnsureEmptyLine() *Buffer {
 	if strings.HasSuffix(b.builder.String(), b.newLine) {
 		return b
-
 	}
+
 	return b.NewLine()
 }
 

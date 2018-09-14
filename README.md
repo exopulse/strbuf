@@ -3,6 +3,7 @@ Package strbuf contains string buffer type which allows multiple operations on t
 check for errors after each operation.
 
 [![CircleCI](https://circleci.com/gh/exopulse/strbuf.svg?style=svg)](https://circleci.com/gh/exopulse/strbuf)
+[![Build Status](https://travis-ci.org/exopulse/strbuf.svg?branch=master)](https://travis-ci.org/exopulse/strbuf)
 [![GitHub license](https://img.shields.io/github/license/exopulse/strbuf.svg)](https://github.com/exopulse/strbuf/blob/master/LICENSE)
 
 # Overview

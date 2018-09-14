@@ -9,10 +9,10 @@ import (
 
 var sample = `Line1
 
-Test
-----------------
-row1
-row2
+Rows
+----
+row-1
+row-2
 
 value=1234`
 
@@ -108,8 +108,8 @@ func populateBuffer(introduceError bool) *Buffer {
 	b.Append("Line1")
 	b.EnsureEmptyLine()
 	b.EnsureEmptyLine()
-	b.AppendTitle("Test", "----")
-	b.AppendAll([]string{"row1", "row2"})
+	b.AppendTitle("Rows", "-")
+	b.AppendAll([]string{"row-1", "row-2"})
 	b.NewLine()
 	b.Appendf("value=%d", 1234)
 

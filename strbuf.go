@@ -47,7 +47,11 @@ func (b *Buffer) Appendf(format string, args ...interface{}) *Buffer {
 func (b *Buffer) AppendTitle(s string, underline string) *Buffer {
 	b.append(s)
 
-	return b.append(strings.Repeat(underline, len(s)))
+	if len(underline) > 0 {
+		b.append(strings.Repeat(underline, len(s)/len(underline)))
+	}
+
+	return b
 }
 
 // NewLine appends new line.

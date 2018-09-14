@@ -40,8 +40,8 @@ b := NewBuffer("\n")
 b.Append("Line1")
 b.EnsureEmptyLine()
 b.EnsureEmptyLine()
-b.AppendTitle("Test", "----")
-b.AppendAll([]string{"row1", "row2"})
+b.AppendTitle("Rows", "-")
+b.AppendAll([]string{"row-1", "row-2"})
 b.NewLine()
 b.Appendf("value=%d", 1234)
 ```
@@ -53,6 +53,17 @@ if b.Error() != nil {
 }
 
 return s.String()
+```
+Sample code will produce:
+```
+Line1
+
+Rows
+----
+row-1
+row-2
+
+value=1234
 ```
 
 # About the project
